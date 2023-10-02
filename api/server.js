@@ -31,4 +31,7 @@ app.use(passport.session());
 const indexRouter = require("./routes/index.js");
 app.use(indexRouter);
 
+const friendRouter = require('./routes/friends.js')
+app.use('/friends', friendRouter)
+
 app.listen(3000, () => "app listening on port 3000");

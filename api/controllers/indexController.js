@@ -1,33 +1,43 @@
-const User = require('../models/User.js')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
+const User = require("../models/User.js");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 exports.get = (req, res) => {
-    res.send('hi')
-}
+  res.send("hi");
+};
 
 exports.postSignup = async (req, res) => {
-    const user = await User.findOne({username: req.body.username})
-    if(user) return res.json({error: 'Username already taken'})
-    bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-        if(err) {
-            console.log('bcrypt error')
-            return res.sendStatus(500)
-        }
-        const newUser = User({
-            username: req.body.username,
-            password: hashedPassword
-        })
-        await newUser.save()
-        return res.json()
-    })
-}
+  const user = await User.findOne({ username: req.body.username });
+  if (user) return res.json({ error: "Username already taken" });
+  bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+    if (err) {
+      console.log("bcrypt error");
+      return res.sendStatus(500);
+    }
+    const newUser = User({
+      username: req.body.username,
+      password: hashedPassword,
+    });
+    await newUser.save();
+    return res.json({});
+  });
+};
 
 exports.postLogin = async (req, res) => {
-    // Gets here only if passes passport middleware
-    const token = jwt.sign({user: req.body.username}, process.env.JWTSECRET, {
-        expiresIn: '2h'
-    } )
-    res.json({token, user:req.body.username})
-}
+  // Gets here only if passes passport middleware
+  const token = jwt.sign({ user: req.body.username }, process.env.JWTSECRET, {
+    expiresIn: "2h",
+  });
+  res.json({ token, user: req.body.username });
+};
+
+exports.postAddFriend = async (req, res) => {
+  jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
+    if (err) return res.sendStatus(403);
+    else {
+        await User.updateOne({username:req.body.friendInput}, {$addToSet: {friend_requests: authData.user}}).exec()
+    }
+  });
+  res.sendStatus(200);
+};
