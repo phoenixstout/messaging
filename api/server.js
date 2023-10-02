@@ -1,7 +1,14 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const passport = require("passport");
+const session = require("express-session");
+const cors = require('cors')
 require("dotenv").config();
+
+app.use(cors({
+  origin: "http://localhost:5173"
+}))
 
 mongoose.connect(process.env.MONGOURI, {
   useUnifiedTopology: true,
@@ -12,8 +19,14 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongo connection error'))
 db.once('open', () => console.log('connected'))
 
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+
+require('./config/passport.js')
+app.use(passport.initialize());
+app.use(passport.session());
 
 const indexRouter = require("./routes/index.js");
 app.use(indexRouter);

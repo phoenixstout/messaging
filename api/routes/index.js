@@ -4,5 +4,7 @@ const indexController = require("../controllers/indexController.js");
 
 router.route('/').get(indexController.get);
 
+router.route('/signup').post(indexController.postSignup)
+
 
 module.exports = router;

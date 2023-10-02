@@ -1,0 +1,19 @@
+.login {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.input-wrapper {
+    display: flex;
+    margin: 10px;
+    justify-content: end;
+}
+
+label {
+    margin-right: 10px;
+}
+
+.no-account {
+    margin-top: 20px;
+}
