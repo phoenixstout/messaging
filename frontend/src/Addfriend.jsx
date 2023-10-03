@@ -13,8 +13,7 @@ export default function AddFriend() {
             },
             body: JSON.stringify({friendInput})
         })
-        .then(r=> r.status)
-        .then(r => console.log(r))
+        .then(window.location.reload())
 
     }
 
