@@ -3,7 +3,7 @@ const router = express.Router();
 const friendController = require("../controllers/friendController.js");
 const passport = require("passport");
 
-router.route('/').get(friendController.getIndex)
+router.route('/').get(verifyToken,friendController.getIndex)
 router.route('/requests')
   .get(verifyToken, friendController.getRequests)
   .put(verifyToken, friendController.putRequests)

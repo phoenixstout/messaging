@@ -1,14 +1,40 @@
-import AddFriend from "./Addfriend"
-import FriendRequests from "./FriendRequests"
-import Header from "./Header"
+import { useEffect, useState } from "react";
+import AddFriend from "./Addfriend";
+import FriendRequests from "./FriendRequests";
+import Header from "./Header";
+import './stylesheets/Friends.css'
 
 export default function Friends() {
-    return (
-        <>
-        <Header />
-        <AddFriend />
-        <FriendRequests />
-        </>
-    )
-        
+  const [friends, setFriends] = useState();
+
+  useEffect(() => {
+    fetch("http://localhost:3000/friends", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        authorization: "bearer " + localStorage.getItem("x-access-token"),
+      },
+    })
+    .then(r => r.json())
+    .then(r => {
+        setFriends(r)
+    })
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <AddFriend />
+      <div className="requests-friends">
+          <FriendRequests />
+          <div>
+            <h3>My Friends</h3>
+              {friends &&
+                friends.friends.map((friend, index) => {
+                  return <div key={index}>{friend}</div>;
+                })}
+          </div>
+      </div>
+    </>
+  );
 }
