@@ -7,7 +7,8 @@ const User = mongoose.model(
     new Schema({
       username: { type: String, required: true },
       password: { type: String, required: true },
-      friend_requests: {type: Array}
+      friend_requests: {type: Array},
+      friends: {type: Array}
     })
   );
 

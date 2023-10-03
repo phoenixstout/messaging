@@ -4,7 +4,9 @@ const friendController = require("../controllers/friendController.js");
 const passport = require("passport");
 
 router.route('/').get(friendController.getIndex)
-router.route('/requests').get(verifyToken, friendController.getRequests)
+router.route('/requests')
+  .get(verifyToken, friendController.getRequests)
+  .put(verifyToken, friendController.putRequests)
 
 
 function verifyToken(req, res, next) {
