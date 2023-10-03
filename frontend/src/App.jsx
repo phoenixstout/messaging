@@ -1,7 +1,6 @@
 import "./stylesheets/App.css";
 import Header from "./Header";
-import AddFriend from "./Addfriend";
-import FriendRequests from "./FriendRequests";
+
 
 function App() {
   const user = localStorage.getItem("user");
@@ -19,8 +18,6 @@ function App() {
     <>
       <Header></Header>
       <div>Welcome back {user}</div>
-      <AddFriend />
-      <FriendRequests />
 
     </>
   );

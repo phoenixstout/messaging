@@ -11,9 +11,21 @@ export default function Header() {
         window.location.reload()
     }
 
+   if(user) {
     return (
-        <nav>
-            {user ? <a onClick={handleLogout}>Log out</a>  : <Link to='/login'>Log In</Link>}
+        <nav className="header">
+            <Link to={'/'}>Home</Link>
+            <Link to={'/friends'}>Friends</Link>
+            <a href="" onClick={handleLogout}>Log Out</a>
         </nav>
     )
+   }
+
+   else {
+    return (
+        <nav className="header">
+            <Link to={'/login'}>Login</Link>
+        </nav>
+    )
+   }
 }

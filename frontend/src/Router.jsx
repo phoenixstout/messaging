@@ -3,6 +3,7 @@ import App from "./App";
 import Login from "./Login";
 import ErrorPage from "./ErrorPage";
 import Signup from "./Signup";
+import Friends from "./Friends";
 
 export default function Router() {
 
@@ -20,6 +21,10 @@ export default function Router() {
         path: "/signup",
         element: <Signup />,
     },
+    {
+      path: "/friends",
+      element: <Friends />
+    }
   ]);
 
   return <RouterProvider router={router} />;
