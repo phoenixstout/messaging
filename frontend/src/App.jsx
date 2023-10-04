@@ -1,6 +1,6 @@
 import "./stylesheets/App.css";
 import Header from "./Header";
-import NewMessage from "./NewMessage";
+import { Link } from "react-router-dom";
 
 
 function App() {
