@@ -85,8 +85,9 @@ exports.postRequests = async (req, res) => {
   res.sendStatus(200);
 };
 
-exports.postMessage = (req, res) => {
+exports.postConversation = (req, res) => {
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
+    console.log(authData)
     if (err) return res.sendStatus(403);
     console.log(authData.user, req.body.content, req.body.choice);
     const message = new Conversation({

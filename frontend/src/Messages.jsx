@@ -35,7 +35,7 @@ export default function Messages() {
 
       function handleSubmit(e) {
         e.preventDefault();
-        fetch(`http://localhost:3000/friends/${choice}/messages`, {
+        fetch(`http://localhost:3000/friends/${choice}/conversation`, {
             method: "POST",
             headers: {"Content-type": "application/json",
         authorization: 'bearer ' + localStorage.getItem('x-access-token')},

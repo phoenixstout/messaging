@@ -10,7 +10,7 @@ router.route('/requests')
   .post(verifyToken, friendController.postRequests)
 
 
-router.route('/:friend_username/messages').post(verifyToken, friendController.postMessage)
+router.route('/:friend_username/conversation').post(verifyToken, friendController.postConversation)
 
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers["authorization"];
