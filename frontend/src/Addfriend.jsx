@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './stylesheets/Addfriend.css'
 
 export default function AddFriend() {
   const [friendInput, setFriendInput] = useState('');

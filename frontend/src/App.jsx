@@ -1,6 +1,6 @@
 import "./stylesheets/App.css";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import Chatbox from "./Chatbox";
 
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
     <>
       <Header></Header>
       <div>Welcome back {user}</div>
-      <Link to={'/messages'}>New Message</Link>
+      <Chatbox />
     </>
   );
 }

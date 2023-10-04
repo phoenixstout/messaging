@@ -4,7 +4,6 @@ import Login from "./Login";
 import ErrorPage from "./ErrorPage";
 import Signup from "./Signup";
 import Friends from "./Friends";
-import Messages from "./Messages";
 
 export default function Router() {
 
@@ -26,10 +25,6 @@ export default function Router() {
       path: "/friends",
       element: <Friends />
     },
-    {
-      path: '/messages',
-      element: <Messages />
-    }
   ]);
 
   return <RouterProvider router={router} />;
