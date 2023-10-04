@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './stylesheets/Addfriend.css'
 
 export default function AddFriend() {
   const [friendInput, setFriendInput] = useState('');
@@ -27,7 +28,7 @@ export default function AddFriend() {
   }
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form className="add-friend" action="" onSubmit={handleSubmit}>
       <label htmlFor="friend-name">Add Friend</label>
       <input type="text" name="friend-name" value={friendInput} onChange={handleChange} />
       <button>Add</button>

@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid black;
+    width: 70vw;
+    height: 50vh;
+}
+
+.title {
+    background-color: beige;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+textarea {
+    resize: none;
+    width: 100%;
+}
+
+.message {
+    border: 1px solid blue;
+}
+
+.user-message {
+    text-align: end;
+}
+.friend-message {
+    text-align: start;
+}
+
+.history {
+    margin-top: auto;
+}
+
+.send-message-btn {
+}
