@@ -28,7 +28,7 @@ export default function Login() {
         return r.json()
     })
     .then(r => {
-        console.log(r)
+      console.log(r.token)
         localStorage.setItem('user', r.user)
         localStorage.setItem('x-access-token', r.token)
         window.location.href = '/'

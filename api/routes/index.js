@@ -11,7 +11,6 @@ router
   .route("/login")
   .post(passport.authenticate("local"), indexController.postLogin);
 
-router.route("/addfriend").post(verifyToken, indexController.postAddFriend);
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers["authorization"];
@@ -19,9 +18,8 @@ function verifyToken(req, res, next) {
     const bearer = bearerHeader.split(" ");
     const bearerToken = bearer[1];
     req.token = bearerToken;
-    next();
   } else {
-    res.sendStatus(403);
+    return res.sendStatus(403);
   }
 }
 

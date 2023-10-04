@@ -26,18 +26,11 @@ exports.postSignup = async (req, res) => {
 
 exports.postLogin = async (req, res) => {
   // Gets here only if passes passport middleware
-  const token = jwt.sign({ user: req.body.username }, process.env.JWTSECRET, {
+  const user = await User.findOne({username: req.body.username})
+  const token = jwt.sign({ user_id: user._id }, process.env.JWTSECRET, {
     expiresIn: "2h",
   });
-  res.json({ token, user: req.body.username });
+  res.json({ token, user: req.user.username });
 };
 
-exports.postAddFriend = async (req, res) => {
-  jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
-    if (err) return res.sendStatus(403);
-    else {
-        await User.updateOne({username:req.body.friendInput}, {$addToSet: {friend_requests: authData.user}}).exec()
-    }
-  });
-  res.sendStatus(200);
-};
+

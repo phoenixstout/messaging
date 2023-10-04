@@ -1,5 +1,6 @@
 import "./stylesheets/App.css";
 import Header from "./Header";
+import NewMessage from "./NewMessage";
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
     <>
       <Header></Header>
       <div>Welcome back {user}</div>
-
+      <NewMessage />
     </>
   );
 }
