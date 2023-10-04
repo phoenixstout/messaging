@@ -19,7 +19,7 @@ function App() {
     <>
       <Header></Header>
       <div>Welcome back {user}</div>
-      <NewMessage />
+      <Link to={'/messages'}>New Message</Link>
     </>
   );
 }
