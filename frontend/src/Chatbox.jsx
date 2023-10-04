@@ -5,7 +5,9 @@ export default function Chatbox() {
   const [friends, setFriends] = useState(null);
   const [message, setMessage] = useState("");
   const [selection, setSelection] = useState();
-  const [messages, setMessages] = useState();
+  const [messages, setMessages] = useState([]);
+
+  const user = localStorage.getItem('user')
 
   useEffect(() => {
     fetch("http://localhost:3000/friends", {
@@ -16,41 +18,47 @@ export default function Chatbox() {
       },
     })
       .then((r) => r.json())
-      .then((r) => setFriends(r.friends));
+      .then((r) => {
+        setSelection(r.friends[0]._id);
+        setFriends(r.friends);
+        handleSelectChange(r.friends[0]._id);
+      });
   }, []);
 
-  function handleSelectChange(e) {
-    console.log(e.target.value);
-    setSelection(e.target.value);
-    if (e.target.value == "1") return;
-    fetch(`http://localhost:3000/friends/${e.target.value}/conversation`, {
+  function handleSelectChange(friend_id) {
+    setSelection(friend_id);
+    if (friend_id == "1") return;
+    fetch(`http://localhost:3000/friends/${friend_id}/conversation`, {
       method: "GET",
       headers: {
         authorization: "bearer " + localStorage.getItem("x-access-token"),
       },
     })
-    .then(r=> r.json())
-    .then(r => {
-      console.log(r)
-      setMessages(r)
-    })
+      .then((r) => r.json())
+      .then((r) => {
+        setMessages(r);
+      });
   }
 
   if (!friends) return;
 
   function handleSubmit(e) {
     e.preventDefault();
-    if(!selection) return
-    console.log(message);
+    if (!selection) return;
+    if (message == "") return;
     fetch(`http://localhost:3000/friends/${selection}/conversation`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
         authorization: "bearer " + localStorage.getItem("x-access-token"),
       },
-      body: JSON.stringify({message}),
-    })
-    .then(window.location.reload())
+      body: JSON.stringify({ message }),
+    }).then((r) => {
+      console.log(messages)
+      setMessages(prev => [...prev, {content: message, author: user}])
+
+      setMessage("");
+    });
   }
 
   function handleChange(e) {
@@ -61,8 +69,11 @@ export default function Chatbox() {
     <div className="wrapper">
       <div className="title">
         <div>Chat with ...</div>
-        <select onChange={handleSelectChange} name="friend-selection">
-          <option value={1}>Select Friend</option>
+        <select
+          onChange={(e) => handleSelectChange(e.target.value)}
+          name="friend-selection"
+          defaultValue={friends[0] ? friends[0]._id : null}
+        >
           {friends &&
             friends.map((friend, index) => {
               return (
@@ -74,9 +85,11 @@ export default function Chatbox() {
         </select>
       </div>
       <div className="history">
-        {messages && messages.map((message, index) => {
-          return <div key={index}>{message.content}</div>
-        })}
+        {messages &&
+          messages.map((message, index) => {
+            if(message.author == user) return <div className="user-message message" key={index}>{message.content}</div>;
+            else return <div className="friend-message message" key={index}>{message.content}</div>;
+          })}
       </div>
       <div className="new-message">
         <form action="" onSubmit={handleSubmit}>
@@ -84,9 +97,10 @@ export default function Chatbox() {
             type="text"
             name="message"
             placeholder="Send message..."
+            value={message}
             onChange={handleChange}
           ></textarea>
-          <button>Send</button>
+          <button className="send-message-btn">Send</button>
         </form>
       </div>
     </div>
