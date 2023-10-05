@@ -101,8 +101,16 @@ exports.getConversation = (req, res) => {
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
     console.log(authData);
     const conversation = await Conversation.find({
-      user1_id: authData.user_id,
-      user2_id: friend_id,
+      $or: [
+        {
+          user1_id: authData.user_id,
+          user2_id: friend_id,
+        },
+        {
+          user1_id: friend_id,
+          user2_id: authData.user_id,
+        },
+      ],
     });
     res.json(conversation[0].messages);
   });
@@ -114,9 +122,20 @@ exports.postConversation = (req, res) => {
   console.log(friend_id);
 
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
-    console.log(authData)
+    console.log(authData);
     const convo = await Conversation.updateOne(
-      { user1_id: authData.user_id, user2_id: friend_id },
+      {
+        $or: [
+          {
+            user1_id: authData.user_id,
+            user2_id: friend_id,
+          },
+          {
+            user1_id: friend_id,
+            user2_id: authData.user_id,
+          },
+        ],
+      },
       {
         $push: {
           messages: [

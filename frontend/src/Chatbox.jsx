@@ -7,6 +7,8 @@ export default function Chatbox() {
   const [selection, setSelection] = useState();
   const [messages, setMessages] = useState();
 
+  const user = localStorage.getItem('user')
+
   useEffect(() => {
     fetch("http://localhost:3000/friends", {
       method: "GET",
@@ -50,7 +52,7 @@ export default function Chatbox() {
       },
       body: JSON.stringify({message}),
     })
-    .then(window.location.reload())
+    .then(setMessages(prev => [...prev, {content:message, author: user}]))
   }
 
   function handleChange(e) {
@@ -75,7 +77,12 @@ export default function Chatbox() {
       </div>
       <div className="history">
         {messages && messages.map((message, index) => {
-          return <div key={index}>{message.content}</div>
+          if(message.author == user) {
+            return <div className='message author-message' key={index}>{message.content}</div>
+          }
+          else {
+            return <div className='message friend-message' key={index}>{message.content}</div>
+          }
         })}
       </div>
       <div className="new-message">
