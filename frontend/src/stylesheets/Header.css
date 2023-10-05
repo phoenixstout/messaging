@@ -8,3 +8,8 @@ a:hover {
     justify-content: center;
     gap: 20px;
 }
+
+.profile-pic-header {
+    width: 50px;
+    border-radius: 50%;
+}
