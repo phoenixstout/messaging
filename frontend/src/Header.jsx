@@ -6,8 +6,10 @@ export default function Header() {
   const [profilePicUrl, setProfilePicUrl] = useState();
 
   const user = localStorage.getItem("user");
+  
 
   useEffect(() => {
+    if(profilePicUrl) return
     fetch(`http://localhost:3000/photo/${user}`, {
       method: "GET",
       headers: {

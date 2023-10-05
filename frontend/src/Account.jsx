@@ -11,6 +11,7 @@ export default function Account() {
   function handleImageUpload(e) {
     const [file] = e.target.files;
     if (file) {
+      if(file.size>1.6e7) return setStatus('too big')
       setChanged(true);
       const reader = new FileReader();
       const { current } = uploadedImage;
@@ -35,7 +36,10 @@ export default function Account() {
       body: formData,
     });
 
-    if (response) setStatus(response.statusText);
+    if (response) {
+      window.location.reload()
+      setStatus(response.statusText)};
+
   }
 
   return (
