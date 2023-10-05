@@ -9,6 +9,8 @@ export default function Chatbox() {
 
   const user = localStorage.getItem('user')
 
+  const user = localStorage.getItem('user')
+
   useEffect(() => {
     fetch("http://localhost:3000/friends", {
       method: "GET",

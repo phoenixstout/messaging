@@ -109,6 +109,7 @@ exports.postConversation = (req, res) => {
   const friend_id = req.params.friend_id;
 
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
+
     const convo = await Conversation.updateOne(
       { $or: [{ user1_id: authData.user_id, user2_id: friend_id }, { user1_id: friend_id, user2_id: authData.user_id }] },
       {
