@@ -33,7 +33,6 @@ export default function Router() {
       children: [
         {
           path: ":id",
-          element: <App />,
           children: [
             {
               index: true,

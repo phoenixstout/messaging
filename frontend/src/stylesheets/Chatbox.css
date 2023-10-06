@@ -50,7 +50,8 @@ textarea {
 .friend-message, .user-message {
     width: 100%;
     display: flex;
-    padding-top: 2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .user-message {
