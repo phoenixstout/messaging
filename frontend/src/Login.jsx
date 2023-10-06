@@ -9,7 +9,7 @@ export default function Login() {
   });
 
   const [valid, setValid] = useState(true);
-  const [serverError, setServerError] = useState()
+  const [serverError, setServerError] = useState();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,20 +18,21 @@ export default function Login() {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         username: inputs.username,
-        password: inputs.password
+        password: inputs.password,
+      }),
+    })
+      .then((r) => {
+        if (r.status != 200) setServerError(true);
+        else setServerError(false);
+        return r.json();
       })
-    })
-    .then(r => {
-        if (r.status!= 200) setServerError(true)
-        else setServerError(false)
-        return r.json()
-    })
-    .then(r => {
-      console.log(r.token)
-        localStorage.setItem('user', r.user)
-        localStorage.setItem('x-access-token', r.token)
-        window.location.href = '/'
-    })
+      .then((r) => {
+        console.log(r)
+        localStorage.setItem("user", r.user);
+        localStorage.setItem("user_id", r.user_id);
+        localStorage.setItem("x-access-token", r.token);
+        window.location.href = `/user/${r.user_id}`;
+      });
   }
 
   function handleChange(e) {
@@ -80,10 +81,10 @@ export default function Login() {
         <button>Log In</button>
       </form>
       {!valid ? <div>Passwords must match</div> : null}
-      {serverError? <div>Invalid</div>:null}
+      {serverError ? <div>Invalid</div> : null}
       <div>
         <div className="no-account">Don't have an account?</div>
-        <Link to="/signup">Sign up</Link>
+        <Link to="/user/signup">Sign up</Link>
       </div>
     </div>
   );

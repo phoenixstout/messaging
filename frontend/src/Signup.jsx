@@ -1,4 +1,3 @@
-import Header from "./Header"
 import './stylesheets/Signup.css'
 import { useState } from "react"
 
@@ -23,7 +22,7 @@ export default function Signup() {
         .then(r => r.json())
         .then(r => {
             if(r.error) setServerError(r.error)
-            else { window.location.href ='/login'}
+            else { window.location.href ='/user/login'}
         })
     }
 
@@ -46,7 +45,6 @@ export default function Signup() {
 
     return (
         <div>
-            <Header></Header>
             <form className="login" action="" onSubmit={handleSubmit}>
                 <div className="username input-wrapper">
                     <label htmlFor="username">Username </label>
