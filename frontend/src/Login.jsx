@@ -1,4 +1,3 @@
-import Header from "./Header";
 import "./stylesheets/Login.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -58,7 +57,6 @@ export default function Login() {
 
   return (
     <div>
-      <Header></Header>
       <form className="login" action="" onSubmit={handleSubmit}>
         <div className="username input-wrapper">
           <label htmlFor="username">Username </label>

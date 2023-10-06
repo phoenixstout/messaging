@@ -9,6 +9,7 @@ const User = mongoose.model(
     friend_requests: { type: Array },
     friends: { type: Array },
     conversations: { type: Array },
+    profile_pic: {type: String},
   })
 );
 

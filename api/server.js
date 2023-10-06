@@ -4,11 +4,17 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
 const cors = require('cors')
+const path = require('path')
+const photoController = require('./controllers/photoController.js')
+
+
 require("dotenv").config();
 
 app.use(cors({
-  origin: "http://localhost:5174"
+  origin: "http://localhost:5173"
 }))
+
+app.use(express.static(path.join(__dirname, '/public')))
 
 mongoose.connect(process.env.MONGOURI, {
   useUnifiedTopology: true,
@@ -34,4 +40,8 @@ app.use(indexRouter);
 const friendRouter = require('./routes/friends.js')
 app.use('/friends', friendRouter)
 
+const photoRouter = require('./routes/photo.js')
+app.use('/photo', photoRouter)
+
 app.listen(3000, () => "app listening on port 3000");
+

@@ -1,31 +1,62 @@
-import { Link } from "react-router-dom"
-import "./stylesheets/Header.css"
+import { Link } from "react-router-dom";
+import "./stylesheets/Header.css";
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 
 export default function Header() {
+  const [profilePicUrl, setProfilePicUrl] = useState();
 
-    const user = localStorage.getItem('user')
+  const user = localStorage.getItem("user");
+  
 
-    function handleLogout() {
-        localStorage.removeItem('x-access-token')
-        localStorage.removeItem('user')
-        window.location.reload()
-    }
+  useEffect(() => {
+    if(profilePicUrl) return
+    if(!user) return
+    fetch(`http://localhost:3000/photo/${user}`, {
+      method: "GET",
+      headers: {
+        authorization: "bearer " + localStorage.getItem("x-access-token"),
+      },
+    })
+    .then(r=> r.blob())
+    .then(r => {
+        setProfilePicUrl(URL.createObjectURL(r))
+    })
+    ;
+  }, []);
 
-   if(user) {
+  function handleLogout() {
+    localStorage.removeItem("x-access-token");
+    localStorage.removeItem("user");
+    window.location.reload();
+  }
+
+  if (user) {
     return (
-        <nav className="header">
-            <Link to={'/'}>Home</Link>
-            <Link to={'/friends'}>Friends</Link>
-            <a href="" onClick={handleLogout}>Log Out</a>
-        </nav>
-    )
-   }
-
-   else {
+      <>
+      <nav className="header">
+        <Link to="/">Home</Link>
+        <Link to="/friends">Friends</Link>
+        <Link to="/account">Account</Link>
+        <a href="" onClick={handleLogout}>
+          Log Out
+        </a>
+        <img className="profile-pic-header"
+          src={profilePicUrl && profilePicUrl}
+          alt=""
+        />
+      </nav>
+      <Outlet />
+      </>
+    );
+  } else {
     return (
-        <nav className="header">
-            <Link to={'/login'}>Login</Link>
-        </nav>
-    )
-   }
+      <>
+      <nav className="header">
+        <Link to={"/login"}>Login</Link>
+      </nav>
+      <Outlet />
+      </>
+    );
+  }
 }
