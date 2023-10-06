@@ -44,7 +44,6 @@ export default function Account() {
 
   return (
     <>
-      <Header />
       <div className="profile-pic-wrapper">
         <div>Profile Picture:</div>
         <form action="" encType="multipart/form-data">

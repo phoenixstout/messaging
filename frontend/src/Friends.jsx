@@ -30,7 +30,6 @@ export default function Friends() {
 
   return (
     <>
-      <Header />
       <AddFriend />
       <div className="requests-friends">
           <FriendRequests />

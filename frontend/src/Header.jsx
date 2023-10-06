@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./stylesheets/Header.css";
 import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 
 export default function Header() {
   const [profilePicUrl, setProfilePicUrl] = useState();
@@ -10,6 +11,7 @@ export default function Header() {
 
   useEffect(() => {
     if(profilePicUrl) return
+    if(!user) return
     fetch(`http://localhost:3000/photo/${user}`, {
       method: "GET",
       headers: {
@@ -31,6 +33,7 @@ export default function Header() {
 
   if (user) {
     return (
+      <>
       <nav className="header">
         <Link to="/">Home</Link>
         <Link to="/friends">Friends</Link>
@@ -43,12 +46,17 @@ export default function Header() {
           alt=""
         />
       </nav>
+      <Outlet />
+      </>
     );
   } else {
     return (
+      <>
       <nav className="header">
         <Link to={"/login"}>Login</Link>
       </nav>
+      <Outlet />
+      </>
     );
   }
 }
