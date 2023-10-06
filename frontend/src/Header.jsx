@@ -36,7 +36,7 @@ export default function Header() {
     return (
       <>
       <nav className="header">
-        <Link to={`/user/${user_id}`}>Home</Link>
+        <Link to={`/user/${user_id}/conversation`}>Home</Link>
         <Link to={`/user/${user_id}/friends`}>Friends</Link>
         <Link to={`/user/${user_id}/account`}>Account</Link>
         <a href="" onClick={handleLogout}>

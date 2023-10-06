@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
 import Login from "./Login";
 import ErrorPage from "./ErrorPage";
 import Signup from "./Signup";
 import Friends from "./Friends";
 import Account from "./Account";
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 import Chatbox from "./Chatbox";
 
 export default function Router() {
@@ -35,8 +35,18 @@ export default function Router() {
           path: ":id",
           children: [
             {
-              index: true,
-              element: <Chatbox />,
+              path: "conversation",
+              element: <Sidebar />,
+              children: [
+                {
+                  index: true,
+                  element: <Chatbox />
+                },
+                {
+                  path: ":friend_id",
+                  element: <Chatbox />,
+                },
+              ],
             },
             {
               path: "friends",
