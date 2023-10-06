@@ -20,9 +20,9 @@ export default function Chatbox() {
     })
       .then((r) => r.json())
       .then((r) => {
-        setSelection(r.friends[0]._id);
+        if(r.friends[0]) {setSelection(r.friends[0]._id);
         setFriends(r.friends);
-        handleSelectChange(r.friends[0]._id);
+        handleSelectChange(r.friends[0]._id);}
       });
   }, []);
 
@@ -46,7 +46,6 @@ export default function Chatbox() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!selection) return;
-    if (message == "") return;
     if (!message.replace(/\s/g, '').length) {
       return console.log('string only contains whitespace (ie. spaces, tabs or line breaks)');
     }
@@ -76,7 +75,7 @@ export default function Chatbox() {
   }
 
   return (
-    <>
+    <div className='chatbox'>
       <div className="title">
         <div>Chat with ...</div>
         <select
@@ -129,6 +128,6 @@ export default function Chatbox() {
             </button>
           </form>
         </div>
-    </>
+    </div>
   );
 }
