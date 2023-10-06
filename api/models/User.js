@@ -10,7 +10,7 @@ const User = mongoose.model(
     friend_requests: { type: Array },
     friends: { type: Array },
     conversations: { type: Array },
-    profile_pic: {type: String, default: path.join(__dirname , '..', 'public', 'images', 'default.png')},
+    profile_pic: {type: String, default: path.join('images', 'default.png')},
   })
 );
 

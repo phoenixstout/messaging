@@ -7,23 +7,19 @@ export default function Header() {
   const [profilePicUrl, setProfilePicUrl] = useState();
 
   const user = localStorage.getItem("user");
-  const user_id = localStorage.getItem("user_id")
-  
+  const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
-    if(profilePicUrl) return
-    if(!user) return
-    fetch(`http://localhost:3000/photo/${user}`, {
+    if (profilePicUrl) return;
+    if (!user) return;
+    fetch(`http://localhost:3000/photo/${user_id}`, {
       method: "GET",
-      headers: {
-        authorization: "bearer " + localStorage.getItem("x-access-token"),
-      },
     })
-    .then(r=> r.blob())
-    .then(r => {
-        setProfilePicUrl(URL.createObjectURL(r))
-    })
-    ;
+      .then((r) => r.json())
+      .then((r) => {
+        console.log(r);
+        setProfilePicUrl(r.url);
+      });
   }, []);
 
   function handleLogout() {
@@ -35,28 +31,29 @@ export default function Header() {
   if (user) {
     return (
       <>
-      <nav className="header">
-        <Link to={`/user/${user_id}/conversation`}>Home</Link>
-        <Link to={`/user/${user_id}/friends`}>Friends</Link>
-        <Link to={`/user/${user_id}/account`}>Account</Link>
-        <a href="" onClick={handleLogout}>
-          Log Out
-        </a>
-        <img className="profile-pic-header"
-          src={profilePicUrl && profilePicUrl}
-          alt=""
-        />
-      </nav>
-      <Outlet />
+        <nav className="header">
+          <Link to={`/user/${user_id}/conversation`}>Home</Link>
+          <Link to={`/user/${user_id}/friends`}>Friends</Link>
+          <Link to={`/user/${user_id}/account`}>Account</Link>
+          <a href="" onClick={handleLogout}>
+            Log Out
+          </a>
+          <img
+            className="profile-pic-header"
+            src={profilePicUrl && `http://localhost:3000/${profilePicUrl}`}
+            alt=""
+          />
+        </nav>
+        <Outlet />
       </>
     );
   } else {
     return (
       <>
-      <nav className="header">
-        <Link to={"/login"}>Login</Link>
-      </nav>
-      <Outlet />
+        <nav className="header">
+          <Link to={"/login"}>Login</Link>
+        </nav>
+        <Outlet />
       </>
     );
   }

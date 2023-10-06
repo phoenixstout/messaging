@@ -8,17 +8,20 @@ export default function Chatbox() {
   const [messages, setMessages] = useState([]);
   const submitBtn = useRef(null);
   const { friend_id } = useParams();
+
   const user_id = localStorage.getItem('user_id')
-
-  console.log('ids: ', user_id, friend_id)
-
   const user = localStorage.getItem("user");
+
+  const token = localStorage.getItem('x-access-token')
+  if(!token) {
+    window.location.href = '/'
+  }
 
   useEffect(()=> {
     if(!friend_id) return
     fetch(`http://localhost:3000/user/${user_id}/conversation/${friend_id}`, {
       method: "GET",
-      headers: {authorization: 'bearer ' + localStorage.getItem('x-access-token')}
+      headers: {authorization: 'bearer ' + token}
     })
     .then(r => r.json())
     .then(r=> setMessages(r))
@@ -26,7 +29,6 @@ export default function Chatbox() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!selection) return;
     if (!message.replace(/\s/g, "").length) {
       return console.log(
         "string only contains whitespace (ie. spaces, tabs or line breaks)"

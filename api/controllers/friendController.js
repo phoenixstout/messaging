@@ -45,7 +45,6 @@ exports.putRequests = async (req, res) => {
       });
 
       await newConvo.save();
-      const convoId = newConvo._id;
       await User.updateOne(
         { _id: authData.user_id },
         {

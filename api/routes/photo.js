@@ -22,7 +22,7 @@ router
   .post(verifyToken, upload.single("file"), photoController.postPhoto);
 
 
-router.route('/:user')
+router.route('/:user_id')
 .get(photoController.getProfilePic)
 
 function verifyToken(req, res, next) {

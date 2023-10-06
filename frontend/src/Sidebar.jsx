@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import './stylesheets/Sidebar.css'
+import "./stylesheets/Sidebar.css";
 
 export default function Sidebar() {
   const [friends, setFriends] = useState();
@@ -16,12 +16,21 @@ export default function Sidebar() {
     })
       .then((r) => r.json())
       .then((r) => setFriends(r.friends));
+
+    fetch(`http://localhost:3000/user/${user_id}/friendspics`, {
+      method: "GET",
+      headers: {
+        authorization: "bearer " + localStorage.getItem("x-access-token"),
+      },
+    })
+      .then((r) => r.blob())
+      .then((r) => setFriends(r.friends));
   }, []);
 
   return (
     <div className="sidebar-chat-wrapper">
       <div className="sidebar">
-        <div>Sidebar</div>
+        <div>Friends</div>
         {friends &&
           friends.map((friend, index) => {
             return (
