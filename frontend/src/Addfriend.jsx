@@ -5,12 +5,13 @@ export default function AddFriend() {
   const [friendInput, setFriendInput] = useState('');
   const [error, setError] = useState();
   const user = localStorage.getItem("user");
+  const user_id = localStorage.getItem('user_id')
 
   function handleSubmit(e) {
     e.preventDefault();
     if (friendInput == user) return setError("Cannot be your own friend!");
     if (!friendInput) return setError("Please enter friend's username");
-    fetch("http://localhost:3000/friends/requests", {
+    fetch(`http://localhost:3000/user/${user_id}/friends/requests`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

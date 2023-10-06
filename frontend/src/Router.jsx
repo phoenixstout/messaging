@@ -1,11 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
 import Login from "./Login";
 import ErrorPage from "./ErrorPage";
 import Signup from "./Signup";
 import Friends from "./Friends";
 import Account from "./Account";
 import Header from "./Header";
+import Sidebar from "./Sidebar";
+import Chatbox from "./Chatbox";
 
 export default function Router() {
   const router = createBrowserRouter([
@@ -14,23 +15,48 @@ export default function Router() {
       element: <Header />,
       errorElement: <ErrorPage />,
       children: [
-        { index: true, element: <App /> },
         {
-          path: "/login",
+          path: "login",
           element: <Login />,
         },
 
         {
-          path: "/signup",
+          path: "signup",
           element: <Signup />,
         },
+      ],
+    },
+    {
+      path: "/user",
+      element: <Header />,
+      errorElement: <ErrorPage />,
+      children: [
         {
-          path: "/friends",
-          element: <Friends />,
-        },
-        {
-          path: "/account",
-          element: <Account />,
+          path: ":id",
+          children: [
+            {
+              path: "conversation",
+              element: <Sidebar />,
+              children: [
+                {
+                  index: true,
+                  element: <Chatbox />
+                },
+                {
+                  path: ":friend_id",
+                  element: <Chatbox />,
+                },
+              ],
+            },
+            {
+              path: "friends",
+              element: <Friends />,
+            },
+            {
+              path: "account",
+              element: <Account />,
+            },
+          ],
         },
       ],
     },

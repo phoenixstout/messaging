@@ -1,5 +1,6 @@
 import "./stylesheets/App.css";
 import Chatbox from "./Chatbox";
+import { Outlet } from "react-router-dom";
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   return (
     <>
       <div>Welcome back {user}</div>
-      <Chatbox />
+      <Outlet />
     </>
   );
 }

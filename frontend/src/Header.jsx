@@ -7,6 +7,7 @@ export default function Header() {
   const [profilePicUrl, setProfilePicUrl] = useState();
 
   const user = localStorage.getItem("user");
+  const user_id = localStorage.getItem("user_id")
   
 
   useEffect(() => {
@@ -35,9 +36,9 @@ export default function Header() {
     return (
       <>
       <nav className="header">
-        <Link to="/">Home</Link>
-        <Link to="/friends">Friends</Link>
-        <Link to="/account">Account</Link>
+        <Link to={`/user/${user_id}/conversation`}>Home</Link>
+        <Link to={`/user/${user_id}/friends`}>Friends</Link>
+        <Link to={`/user/${user_id}/account`}>Account</Link>
         <a href="" onClick={handleLogout}>
           Log Out
         </a>

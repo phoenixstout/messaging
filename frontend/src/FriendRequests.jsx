@@ -4,8 +4,10 @@ import "./stylesheets/FriendRequests.css";
 export default function FriendRequests() {
   const [friendrequests, setFriendRequests] = useState(null);
 
+  const user_id = localStorage.getItem('user_id')
+
   useEffect(() => {
-    fetch("http://localhost:3000/friends/requests", {
+    fetch(`http://localhost:3000/user/${user_id}/friends/requests`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -21,7 +23,7 @@ export default function FriendRequests() {
   }, []);
 
   function handleClick(confirm, friend) {
-    fetch("http://localhost:3000/friends/requests", {
+    fetch(`http://localhost:3000/user/${user_id}/friends/requests`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

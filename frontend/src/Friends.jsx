@@ -7,12 +7,14 @@ import './stylesheets/Friends.css'
 export default function Friends() {
   const [friends, setFriends] = useState();
 
+  const user_id = localStorage.getItem('user_id')
+
   if(!localStorage.getItem('x-access-token')) {
     window.location.href = '/'
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/friends", {
+    fetch(`http://localhost:3000/user/${user_id}/friends`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",

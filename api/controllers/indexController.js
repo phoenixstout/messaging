@@ -30,7 +30,7 @@ exports.postLogin = async (req, res) => {
   const token = jwt.sign({ user_id: user._id, user: req.body.username }, process.env.JWTSECRET, {
     expiresIn: "2h",
   });
-  res.json({ token, user: req.user.username });
+  res.json({ token, user: req.user.username, user_id: user._id});
 };
 
 

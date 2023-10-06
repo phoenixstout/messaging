@@ -38,7 +38,7 @@ const indexRouter = require("./routes/index.js");
 app.use(indexRouter);
 
 const friendRouter = require('./routes/friends.js')
-app.use('/friends', friendRouter)
+app.use('/user/:user_id/', friendRouter)
 
 const photoRouter = require('./routes/photo.js')
 app.use('/photo', photoRouter)

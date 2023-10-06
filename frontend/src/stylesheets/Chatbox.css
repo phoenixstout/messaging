@@ -4,11 +4,20 @@
 
 .wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: space-between;
-    border: 1px solid black;
     width: 70vw;
-    height: 50vh;
+    height: 50vw;
+    overflow-y: scroll;
+    border: 1px solid black;
+}
+
+.wrapper {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.wrapper::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
 }
 
 .title {
@@ -33,18 +42,42 @@ textarea {
 }
 
 .message {
-    border: 1px solid blue;
+    width: fit-content;
+    padding: 2px 4px 2px 4px;
+    border-radius: 10px;
+    font-weight: 450;
+}
+
+.friend-message, .user-message {
+    width: 100%;
+    display: flex;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .user-message {
-    text-align: end;
+    justify-content: end;
 }
-.friend-message {
-    text-align: start;
+
+.user-message .message {
+    background-color: blue;
+    color: white;
+    
 }
+
+.friend-message .message {
+justify-content: start;
+background-color: rgb(236, 236, 236);
+}
+
+
 
 .history {
     margin-top: auto;
+}
+
+.chatbox {
+    border: 1px solid black;
 }
 
 .send-message-btn {
