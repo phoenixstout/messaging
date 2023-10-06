@@ -84,7 +84,7 @@ export default function Login() {
       {serverError ? <div>Invalid</div> : null}
       <div>
         <div className="no-account">Don't have an account?</div>
-        <Link to="/user/signup">Sign up</Link>
+        <Link to="/signup">Sign up</Link>
       </div>
     </div>
   );

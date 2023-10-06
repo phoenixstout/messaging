@@ -54,7 +54,7 @@ export default function Header() {
     return (
       <>
       <nav className="header">
-        <Link to={"/user/login"}>Login</Link>
+        <Link to={"/login"}>Login</Link>
       </nav>
       <Outlet />
       </>

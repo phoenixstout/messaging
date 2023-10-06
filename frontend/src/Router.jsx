@@ -14,15 +14,17 @@ export default function Router() {
       path: "/",
       element: <Header />,
       errorElement: <ErrorPage />,
-    },
-    {
-      path: "login",
-      element: <Login />,
-    },
+      children: [
+        {
+          path: "login",
+          element: <Login />,
+        },
 
-    {
-      path: "signup",
-      element: <Signup />,
+        {
+          path: "signup",
+          element: <Signup />,
+        },
+      ],
     },
     {
       path: "/user",
@@ -35,7 +37,7 @@ export default function Router() {
           children: [
             {
               index: true,
-              element: <Chatbox />
+              element: <Chatbox />,
             },
             {
               path: "friends",
