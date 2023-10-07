@@ -2,8 +2,24 @@
     border: 1px solid black;
     display: flex;
     flex-direction: column;
+    padding: 10px;
 }
 
 .sidebar-chat-wrapper {
     display: flex;
+}
+
+.sidebar.profilepic {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.friend-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
 }

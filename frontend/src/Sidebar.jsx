@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "./stylesheets/Sidebar.css";
+import SidebarFriend from "./SidebarFriend";
 
 export default function Sidebar() {
   const [friends, setFriends] = useState();
@@ -15,16 +16,8 @@ export default function Sidebar() {
       },
     })
       .then((r) => r.json())
-      .then((r) => setFriends(r.friends));
-
-    fetch(`http://localhost:3000/user/${user_id}/friendspics`, {
-      method: "GET",
-      headers: {
-        authorization: "bearer " + localStorage.getItem("x-access-token"),
-      },
-    })
-      .then((r) => r.blob())
-      .then((r) => setFriends(r.friends));
+      .then((r) => {
+        setFriends(r.friends)});
   }, []);
 
   return (
@@ -34,12 +27,7 @@ export default function Sidebar() {
         {friends &&
           friends.map((friend, index) => {
             return (
-              <Link
-                to={`/user/${user_id}/conversation/${friend._id}`}
-                key={index}
-              >
-                <div>{friend.name}</div>
-              </Link>
+              <SidebarFriend friend_id={friend._id} key={index} />
             );
           })}
       </div>

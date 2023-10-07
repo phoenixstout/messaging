@@ -17,7 +17,6 @@ export default function Header() {
     })
       .then((r) => r.json())
       .then((r) => {
-        console.log(r);
         setProfilePicUrl(r.url);
       });
   }, []);

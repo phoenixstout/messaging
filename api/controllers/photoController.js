@@ -3,9 +3,7 @@ const User = require("../models/User");
 const fs = require("fs");
 
 exports.getProfilePic = async (req, res) => {
-  console.log(req.params)
   const url = await User.find({_id: req.params.user_id}).select('profile_pic -_id')
-  console.log('sending: ', url[0])
   res.json({url: url[0].profile_pic})
 }
 
@@ -18,8 +16,6 @@ exports.postPhoto = async (req, res) => {
         if (err) console.log(err);
       });
     }
-
-    console.log(req.file)
 
     const update = await User.updateOne(
       { _id: authData.user_id },

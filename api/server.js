@@ -6,6 +6,7 @@ const session = require("express-session");
 const cors = require('cors')
 const path = require('path')
 const photoController = require('./controllers/photoController.js')
+const User = require('./models/User.js')
 
 
 require("dotenv").config();
@@ -42,6 +43,11 @@ app.use('/user/:user_id/', friendRouter)
 
 const photoRouter = require('./routes/photo.js')
 app.use('/photo', photoRouter)
+
+app.get('/friends/:friend_id/profilepic', async (req, res) => {
+  const profile_pic = await User.find({_id: req.params.friend_id}).select('profile_pic username -_id')
+  res.json(profile_pic[0])
+})
 
 app.listen(3000, () => "app listening on port 3000");
 

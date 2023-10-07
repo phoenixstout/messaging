@@ -2,7 +2,9 @@ const User = require("../models/User.js");
 const Conversation = require("../models/Conversation.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { response } = require("express");
 require("dotenv").config();
+
 
 exports.getIndex = (req, res) => {
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
@@ -38,7 +40,6 @@ exports.putRequests = async (req, res) => {
     const user = await User.findById(authData.user_id);
 
     if (req.body.confirm) {
-      console.log("adding friend");
       const newConvo = new Conversation({
         user1_id: authData.user_id,
         user2_id: friend._id,
@@ -49,7 +50,7 @@ exports.putRequests = async (req, res) => {
         { _id: authData.user_id },
         {
           $pull: { friend_requests: { username: req.body.friend } },
-          $addToSet: { friends: { name: req.body.friend, _id: friend._id } },
+          $addToSet: { friends: { name: req.body.friend, _id: friend._id} },
           $push: { conversations: newConvo },
         }
       );
@@ -58,7 +59,7 @@ exports.putRequests = async (req, res) => {
         {
           $pull: { friend_requests: { username: authData.user } },
           $addToSet: {
-            friends: { name: user.username, _id: authData.user_id },
+            friends: { name: user.username, _id: authData.user_id},
           },
           $push: { conversations: newConvo },
         }
@@ -95,11 +96,13 @@ exports.postRequests = async (req, res) => {
 };
 
 exports.getConversation = (req, res) => {
+  if(!req.token) res.sendStatus(403)
   const friend_id = req.params.friend_id;
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
     const conversation = await Conversation.find({
       $or: [{ user1_id: authData.user_id, user2_id: friend_id }, { user1_id: friend_id, user2_id: authData.user_id }],
     });
+    if(!conversation[0]) res.json({error: "no conversation found"})
     res.json(conversation[0].messages);
   });
 };

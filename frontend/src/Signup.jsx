@@ -22,7 +22,7 @@ export default function Signup() {
         .then(r => r.json())
         .then(r => {
             if(r.error) setServerError(r.error)
-            else { window.location.href ='/user/login'}
+            else { window.location.href ='/login'}
         })
     }
 
