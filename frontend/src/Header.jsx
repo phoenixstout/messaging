@@ -24,6 +24,7 @@ export default function Header() {
   function handleLogout() {
     localStorage.removeItem("x-access-token");
     localStorage.removeItem("user");
+    localStorage.removeItem('user_id')
     window.location.reload();
   }
 

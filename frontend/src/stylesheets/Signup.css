@@ -4,12 +4,16 @@
 }
 
 .invalid {
-box-shadow: 0 0 0 2px red;
+    box-shadow: 0 0 0 2px red;
+}
+
+.valid {
+box-shadow: 0 0 0 2px green;
+
 }
 
 .input-wrapper {
     display: flex;
-    margin: 10px;
     justify-content: end;
 }
 
@@ -19,4 +23,10 @@ label {
 
 .no-account {
     margin-top: 20px;
+}
+
+.error-message {
+    font-size: small;
+    color: red;
+    text-align: center;
 }

@@ -1,12 +1,15 @@
 import './stylesheets/Signup.css'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Signup() {
     const [inputs, setInputs] = useState({
-        username: null,
+        username: '',
         password: null,
         confirmPassword: null
     })
+
+    const [usernameValid, setUsernameValid] = useState(true)
+    const [usernameError, setUsernameError] = useState('')
 
     const [valid, setValid] = useState(true)
 
@@ -25,6 +28,17 @@ export default function Signup() {
             else { window.location.href ='/login'}
         })
     }
+
+    useEffect(()=>{
+        // if(inputs.username.length < 5) return setUsernameValid(false)
+        if(inputs.username == '') return setUsernameError('')
+        fetch(`http://localhost:3000/users/${inputs.username}`)
+        .then(r => r.json())
+        .then(r => {
+            setUsernameError('Username taken')
+            setUsernameValid(!r.valid)})
+        
+    }, [inputs.username])
 
     function handleChange(e) {
         if(e.target.name === 'username') {
@@ -46,9 +60,12 @@ export default function Signup() {
     return (
         <div>
             <form className="login" action="" onSubmit={handleSubmit}>
-                <div className="username input-wrapper">
+                <div className={`username input-wrapper `}>
                     <label htmlFor="username">Username </label>
-                    <input type="text" name="username" placeholder="Username" onChange={handleChange}/>
+                    <div>
+                        <input type="text" name="username" placeholder="Username" onChange={handleChange} minLength={5} className={usernameValid? 'valid' : 'invalid'}/>
+                        <div className='error-message'>{!usernameValid && usernameError}</div>
+                    </div>
                 </div>
                 <div className="password input-wrapper">
                     <label htmlFor="password">Password </label>
