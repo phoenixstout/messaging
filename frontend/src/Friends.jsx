@@ -35,7 +35,7 @@ export default function Friends() {
       <AddFriend />
       <div className="requests-friends">
           <FriendRequests />
-          <div>
+          <div className="my-friends">
             <h3>My Friends</h3>
               {friends &&
                 friends.friends.map((friend, index) => {

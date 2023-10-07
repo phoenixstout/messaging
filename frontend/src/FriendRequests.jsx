@@ -37,7 +37,10 @@ export default function FriendRequests() {
       });
   }
 
-  if (!friendrequests) return;
+  if (!friendrequests) {
+    return (
+      <h3>Friend Requests</h3>
+  )}
 
   return (
     <>

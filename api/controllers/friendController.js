@@ -102,8 +102,9 @@ exports.getConversation = (req, res) => {
     const conversation = await Conversation.find({
       $or: [{ user1_id: authData.user_id, user2_id: friend_id }, { user1_id: friend_id, user2_id: authData.user_id }],
     });
+    const friend = await User.findById(friend_id)
     if(!conversation[0]) res.json({error: "no conversation found"})
-    res.json(conversation[0].messages);
+    res.json({friend: friend.username,conversation:conversation[0].messages});
   });
 };
 

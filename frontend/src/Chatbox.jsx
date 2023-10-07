@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 export default function Chatbox() {
   const [message, setMessage] = useState("");
-  const [selection, setSelection] = useState();
+  const [friend, setFriend] = useState('');
   const [messages, setMessages] = useState([]);
   const submitBtn = useRef(null);
   const { friend_id } = useParams();
@@ -24,7 +24,9 @@ export default function Chatbox() {
       headers: {authorization: 'bearer ' + token}
     })
     .then(r => r.json())
-    .then(r=> setMessages(r))
+    .then(r=> {
+      setFriend(r.friend)
+      setMessages(r.conversation)})
   }, [friend_id])
 
   function handleSubmit(e) {
@@ -45,7 +47,7 @@ export default function Chatbox() {
         body: JSON.stringify({ message }),
       }
     ).then((r) => {
-      setMessages((prev) => [...prev, { content: message, author: user }]);
+      setMessages((prev) => [...prev, { content: message, author: user }]);  // Locally set messages after post
 
       setMessage("");
     });
@@ -64,6 +66,7 @@ export default function Chatbox() {
 
   return (
     <div className="chatbox">
+      <div className="title">Chat with {friend}</div>
       <div className="wrapper">
         <div className="history">
           {messages &&

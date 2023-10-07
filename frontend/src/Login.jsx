@@ -23,16 +23,19 @@ export default function Login() {
     })
       .then((r) => {
         if (r.status != 200) setServerError(true);
-        else setServerError(false);
-        return r.json();
+        else {
+          setServerError(false);
+          return r.json();
+        }
       })
       .then((r) => {
-        console.log(r)
         localStorage.setItem("user", r.user);
         localStorage.setItem("user_id", r.user_id);
         localStorage.setItem("x-access-token", r.token);
         window.location.href = `/user/${r.user_id}/conversation`;
-      });
+      })
+      .catch(e => console.log(e))
+      ;
   }
 
   function handleChange(e) {
@@ -81,9 +84,11 @@ export default function Login() {
         <button>Log In</button>
       </form>
       {!valid ? <div>Passwords must match</div> : null}
-      {serverError ? <div>Invalid</div> : null}
-      <div>
-        <div className="no-account">Don't have an account?</div>
+      {serverError ? (
+        <div className="server-error">Username or password is incorrect</div>
+      ) : null}
+      <div className="no-account">
+        <div>Don't have an account?</div>
         <Link to="/signup">Sign up</Link>
       </div>
     </div>

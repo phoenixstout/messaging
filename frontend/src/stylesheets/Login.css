@@ -16,4 +16,9 @@ label {
 
 .no-account {
     margin-top: 20px;
+    text-align: center;
+}
+
+.server-error {
+    text-align: center;
 }
