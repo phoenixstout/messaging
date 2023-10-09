@@ -3,7 +3,8 @@ import "./stylesheets/Addfriend.css";
 
 export default function AddFriend() {
   const [friendInput, setFriendInput] = useState("");
-  const [autoComplete, setAutoComplete] = useState("");
+  const [friendID, setFriendID] = useState('')
+  const [autoComplete, setAutoComplete] = useState();
   const [error, setError] = useState("");
   const user = localStorage.getItem("user");
   const user_id = localStorage.getItem("user_id");
@@ -22,28 +23,47 @@ export default function AddFriend() {
     }).then(() => {
       setError("Friend request sent!");
       setFriendInput("");
+      setAutoComplete()
     });
   }
 
   function handleChange(e) {
     setFriendInput(e.target.value);
-    if(!e.target.value) return
+    if(!e.target.value) return setAutoComplete()
     fetch(`http://localhost:3000/users/${e.target.value}`)
       .then((r) => r.json())
-      .then((r) => console.log(r));
+      .then(r => {
+        if(!r.users.length) return setAutoComplete()
+        setAutoComplete(r.users)})
+  }
+
+  function handleAutoComplete(username, id) {
+    setFriendInput(username)
+    setFriendID(id)
   }
 
   return (
-    <form className="add-friend" action="" onSubmit={handleSubmit}>
-      <label htmlFor="friend-name">Add Friend</label>
-      <input
-        type="text"
-        name="friend-name"
-        value={friendInput}
-        onChange={handleChange}
-      />
-      <button>Add</button>
-      <div>{error}</div>
-    </form>
+    <div>
+      <form className="add-friend" action="" onSubmit={handleSubmit}>
+        <label htmlFor="friend-name">Add Friend</label>
+        <div className="input-wrapper">
+          <input className="user-search"
+            type="text"
+            name="friend-name"
+            value={friendInput}
+            onChange={handleChange}
+          />
+      {autoComplete && <div className="autocomplete">
+        {autoComplete.map(suggestion => {
+          return (
+            <div className='suggestion' key={suggestion.id} value={suggestion._id} onClick={() => handleAutoComplete(suggestion.username, suggestion._id)}>{suggestion.username}</div>
+          )
+        })}
+      </div>}
+        <div className="error">{error}</div>
+        </div>
+        <button>Add</button>
+      </form>
+    </div>
   );
 }

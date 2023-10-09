@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./stylesheets/FriendRequests.css";
 
+
 export default function FriendRequests() {
   const [friendrequests, setFriendRequests] = useState(null);
 
@@ -16,9 +17,7 @@ export default function FriendRequests() {
     })
       .then((r) => r.json())
       .then((r) => {
-        if (r[0]) {
           setFriendRequests(r);
-        }
       });
   }, []);
 
@@ -42,18 +41,27 @@ export default function FriendRequests() {
       <h3>Friend Requests</h3>
   )}
 
+  console.log(friendrequests)
+
   return (
     <>
       <div className="friend-requests-wrapper">
         <h3>Friend Requests</h3>
-        {friendrequests.map((request, index) => {
+        {friendrequests.incoming.map((request, index) => {
           return (
             <div className="request-wrapper" key={index}>
-              <div>{request}</div>
+              <div>{request.username}</div>
               <button onClick={() => handleClick(true, request)}>
                 Confirm
               </button>
               <button onClick={() => handleClick(false, request)}>Deny</button>
+            </div>
+          );
+        })}
+        {friendrequests.outgoing.map((request, index) => {
+          return (
+            <div className="request-wrapper outgoing" key={index}>
+              <i>{request.username}</i>
             </div>
           );
         })}

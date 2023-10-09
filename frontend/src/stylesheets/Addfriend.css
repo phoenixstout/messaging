@@ -1,6 +1,37 @@
 .add-friend {
     display: flex;
+    justify-content: space-around;
+    align-items:baseline;
+    padding: 15px;
+}
+
+.input-wrapper {
+    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+}
+
+.autocomplete {
+    position: relative;
+    text-align: end;
+    border: 1px solid gray;
+}
+
+.suggestion {
+    /* border: 1px solid gray; */
+    background-color: rgb(241, 241, 241);
+    padding: 2px;
+    padding-right: 5px;
+}
+
+.suggestion:hover {
+    background-color: rgb(199, 199, 199);
+    cursor: pointer;
+}
+
+.error {
+    text-align: center;
+    padding: 5px;
+}
+.user-search {
+    text-align: end;
 }

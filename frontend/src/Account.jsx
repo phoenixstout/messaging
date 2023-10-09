@@ -2,11 +2,17 @@ import "./stylesheets/Account.css";
 import Header from "./Header";
 import { useRef, useState } from "react";
 
+
 export default function Account() {
+  const user_id = localStorage.getItem('user_id')
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
   const [changed, setChanged] = useState(false);
   const [status, setStatus] = useState("");
+
+  if(!user_id) {
+    return window.location.href = '/'
+  }
 
   function handleImageUpload(e) {
     const [file] = e.target.files;

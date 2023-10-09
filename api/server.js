@@ -55,9 +55,8 @@ app.get("/users/:username", async (req, res) => {
   const pipe = [
     {
       $search: {
-        'index': "autoCompleteUsers",
+        'index': "autocomplete",
         'autocomplete': { query: req.params.username, path: "username" },
-        'highlight': {'path': 'username'}
       },
     },
     { $limit: 5 },
@@ -65,8 +64,7 @@ app.get("/users/:username", async (req, res) => {
   ];
   const user = await User.aggregate(pipe).exec();
 
-  console.log(user);
-  res.json({ valid: Boolean(user[0]) });
+  res.json({users:user});
 });
 
 app.listen(3000, () => "app listening on port 3000");
