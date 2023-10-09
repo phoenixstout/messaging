@@ -52,9 +52,21 @@ app.get("/friends/:friend_id/profilepic", async (req, res) => {
 });
 
 app.get("/users/:username", async (req, res) => {
-  const user = await User.findOne({username:req.params.username})
+  const pipe = [
+    {
+      $search: {
+        'index': "autoCompleteUsers",
+        'autocomplete': { query: req.params.username, path: "username" },
+        'highlight': {'path': 'username'}
+      },
+    },
+    { $limit: 5 },
+    { $project: { _id: 1, username: 1 } },
+  ];
+  const user = await User.aggregate(pipe).exec();
 
-  res.json({valid: Boolean(user)})
+  console.log(user);
+  res.json({ valid: Boolean(user[0]) });
 });
 
 app.listen(3000, () => "app listening on port 3000");
