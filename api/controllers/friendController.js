@@ -29,10 +29,11 @@ exports.getRequests = (req, res) => {
 };
 
 exports.putRequests = async (req, res) => {
+  console.log(req.body)
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
     if (err) return res.sendStatus(403);
 
-    const friend = await User.findOne({ username: req.body.friend });
+    const friend = await User.findOne({ _id: req.body.friend.user_id });
     const user = await User.findById(authData.user_id);
 
     if (req.body.confirm) {
@@ -45,15 +46,15 @@ exports.putRequests = async (req, res) => {
       await User.updateOne(
         { _id: authData.user_id },
         {
-          $pull: { "friend_requests.incoming": { username: req.body.friend } },
+          $pull: { "friend_requests.incoming": { user_id: req.body.friend.user_id } },
           $addToSet: { friends: { name: req.body.friend, _id: friend._id } },
           $push: { conversations: newConvo },
         }
       );
       await User.updateOne(
-        { username: req.body.friend },
+        { _id: req.body.friend.user_id },
         {
-          $pull: { "friend_requests.incoming": { username: authData.user } },
+          $pull: { "friend_requests.incoming": { user_id: req.body.friend.user_id } },
           $addToSet: {
             friends: { name: user.username, _id: authData.user_id },
           },
@@ -64,12 +65,12 @@ exports.putRequests = async (req, res) => {
       await User.update(
         { _id: authData.user_id },
         {
-          $pull: { "friend_requests.incoming": { username: req.body.friend } },
+          $pull: { "friend_requests.incoming": { user_id: req.body.friend.user_id } },
         },
         { new: true }
       );
     }
-    res.json({ hi: "hi" });
+    res.sendStatus(200);
   });
 };
 
@@ -128,6 +129,7 @@ exports.getConversation = (req, res) => {
 
 exports.postConversation = (req, res) => {
   const friend_id = req.params.friend_id;
+  console.log(friend_id)
 
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
     await Conversation.updateOne(

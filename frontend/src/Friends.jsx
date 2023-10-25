@@ -39,7 +39,7 @@ export default function Friends() {
             <h3>My Friends</h3>
               {friends &&
                 friends.friends.map((friend, index) => {
-                  return <div key={index}>{friend.name}</div>;
+                  return <div key={index}>{friend.name.username}</div>;
                 })}
           </div>
       </div>

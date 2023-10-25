@@ -30,18 +30,13 @@ export default function FriendRequests() {
       },
       body: JSON.stringify({ confirm, friend }),
     })
-      .then((r) => r.json())
-      .then((r) => {
-        window.location.reload();
-      });
+      .then((r) => console.log(r))
   }
 
   if (!friendrequests) {
     return (
       <h3>Friend Requests</h3>
   )}
-
-  console.log(friendrequests)
 
   return (
     <>

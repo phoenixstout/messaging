@@ -30,7 +30,9 @@ exports.postLogin = async (req, res) => {
   const token = jwt.sign({ user_id: user._id, user: req.body.username }, process.env.JWTSECRET, {
     expiresIn: "2h",
   });
-  res.json({ token, user: req.user.username, user_id: user._id});
+  const friend = user.friends[0]? user.friends[0]._id : undefined
+  console.log(friend)
+  res.json({ token, user: req.user.username, user_id: user._id, friend});
 };
 
 

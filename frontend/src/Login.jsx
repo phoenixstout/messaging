@@ -32,7 +32,8 @@ export default function Login() {
         localStorage.setItem("user", r.user);
         localStorage.setItem("user_id", r.user_id);
         localStorage.setItem("x-access-token", r.token);
-        window.location.href = `/user/${r.user_id}/conversation`;
+        if(r.friend === undefined) window.location.href = `/user/${r.user_id}/friends`
+        else window.location.href = `/user/${r.user_id}/conversation/${r.friend}`;
       })
       .catch(e => console.log(e))
       ;
