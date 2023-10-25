@@ -1,25 +1,29 @@
 .sidebar {
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  border: 1px solid rgb(204, 203, 203);
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px 10px 10px;
+  font-size: large;
 }
 
 .sidebar-chat-wrapper {
-    display: flex;
+  display: flex;
 }
 
 .sidebar.profilepic {
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    border: 1px solid black;
-    border-radius: 50%;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .friend-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0 10px 0;
+}
 
+.ftitle {
+  padding: 5px 0 5px 0;
 }

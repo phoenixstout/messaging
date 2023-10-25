@@ -23,7 +23,7 @@ export default function Sidebar() {
   return (
     <div className="sidebar-chat-wrapper">
       <div className="sidebar">
-        <div>Friends</div>
+        <div className="ftitle">Friends</div>
         {friends &&
           friends.map((friend, index) => {
             return (

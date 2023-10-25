@@ -9,7 +9,6 @@
     width: 70vw;
     height: 70vh;
     overflow-y: scroll;
-    border: 1px solid black;
 }
 
 .wrapper {
@@ -21,12 +20,13 @@
 }
 
 .title {
-    background-color: beige;
+    background-color: rgb(255, 213, 253);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     font-size: large;
+    padding: 5px 0 5px 0;
 }
 
 form {
@@ -78,8 +78,5 @@ background-color: rgb(236, 236, 236);
 }
 
 .chatbox {
-    border: 1px solid black;
-}
-
-.send-message-btn {
+    border: 1px solid rgb(204, 203, 203);
 }

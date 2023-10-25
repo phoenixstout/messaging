@@ -66,7 +66,7 @@ export default function Chatbox() {
 
   return (
     <div className="chatbox">
-      <div className="title">Chat with {friend}</div>
+      {friend? <div className="title">Chat with {friend}</div> : <div className="title">Choose a friend to chat with</div>}
       <div className="wrapper">
         <div className="history">
           {messages &&
