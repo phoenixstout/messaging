@@ -69,15 +69,15 @@ app.get("/users/:username", async (req, res) => {
   res.json({users:user});
 });
 
-https.createServer(
-  {
-    key: fs.readFileSync(path.join(__dirname, 'key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'cert.pem')),
-  },
-  app
-)
-.listen(80, () => {
-  console.log('listening on port 80')
-})
+// https.createServer(
+//   {
+//     key: fs.readFileSync(path.join(__dirname, 'key.pem')),
+//     cert: fs.readFileSync(path.join(__dirname, 'cert.pem')),
+//   },
+//   app
+// )
+// .listen(80, () => {
+//   console.log('listening on port 80')
+// })
 
-// app.listen(3000, () => console.log("app listening on port 3000"));
+app.listen(80, () => console.log("app listening on port 3000"));
