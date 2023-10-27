@@ -13,9 +13,7 @@ const User = require("./models/User.js");
 require("dotenv").config();
 
 app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
+  cors()
 );
 
 app.use(express.static(path.join(__dirname, "/public")));
