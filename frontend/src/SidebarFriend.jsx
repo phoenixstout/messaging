@@ -8,7 +8,7 @@ export default function SidebarFriend({ friend_id }) {
   const [friend, setFriend] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/friends/${friend_id}/profilepic`, {
+    fetch(`http://52.25.203.21/friends/${friend_id}/profilepic`, {
       method: "GET",
     })
       .then((r) => r.json())
@@ -25,7 +25,7 @@ export default function SidebarFriend({ friend_id }) {
         <div>{friend.username}</div>
         <img
           className="sidebar profilepic"
-          src={`http://localhost:3000/${friend.profile_pic}`}
+          src={`http://52.25.203.21/${friend.profile_pic}`}
           alt=""
         />
       </div>

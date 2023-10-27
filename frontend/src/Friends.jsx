@@ -14,7 +14,7 @@ export default function Friends() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/user/${user_id}/friends`, {
+    fetch(`http://52.25.203.21/user/${user_id}/friends`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",

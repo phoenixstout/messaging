@@ -22,7 +22,7 @@ export default function Signup() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!usernameValid | !passwordValid | !matchValid) return;
-    fetch("http://localhost:3000/signup", {
+    fetch("http://52.25.203.21/signup", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(inputs),
@@ -39,7 +39,7 @@ export default function Signup() {
   useEffect(() => {
     // if(inputs.username.length < 5) return setUsernameValid(false)
     if (inputs.username == "") return setUsernameError("");
-    fetch(`http://localhost:3000/users/${inputs.username}`)
+    fetch(`http://52.25.203.21/users/${inputs.username}`)
       .then((r) => r.json())
       .then((r) => {
         setUsernameError("Username taken");

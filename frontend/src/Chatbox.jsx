@@ -19,7 +19,7 @@ export default function Chatbox() {
 
   useEffect(()=> {
     if(!friend_id) return
-    fetch(`http://localhost:3000/user/${user_id}/conversation/${friend_id}`, {
+    fetch(`http://52.25.203.21/user/${user_id}/conversation/${friend_id}`, {
       method: "GET",
       headers: {authorization: 'bearer ' + token}
     })
@@ -37,7 +37,7 @@ export default function Chatbox() {
       );
     }
     fetch(
-      `http://localhost:3000/user/${user_id}/conversation/${friend_id}`,
+      `http://52.25.203.21/user/${user_id}/conversation/${friend_id}`,
       {
         method: "POST",
         headers: {

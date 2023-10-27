@@ -13,7 +13,7 @@ export default function AddFriend() {
     e.preventDefault();
     if (friendInput == user) return setError("Cannot be your own friend!");
     if (!friendInput) return setError("Please enter friend's username");
-    fetch(`http://localhost:3000/user/${user_id}/friends/requests`, {
+    fetch(`http://52.25.203.21/user/${user_id}/friends/requests`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -30,7 +30,7 @@ export default function AddFriend() {
   function handleChange(e) {
     setFriendInput(e.target.value);
     if(!e.target.value) return setAutoComplete()
-    fetch(`http://localhost:3000/users/${e.target.value}`)
+    fetch(`http://52.25.203.21/users/${e.target.value}`)
       .then((r) => r.json())
       .then(r => {
         if(!r.users.length) return setAutoComplete()
