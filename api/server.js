@@ -80,4 +80,4 @@ app.get("/users/:username", async (req, res) => {
 //   console.log('listening on port 80')
 // })
 
-app.listen(80, () => console.log("app listening on port 3000"));
+app.listen(80, () => console.log("app listening on port 80"));
