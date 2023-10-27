@@ -1,4 +1,6 @@
 const express = require("express");
+const https = require('https')
+const fs = require('fs')
 const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -67,4 +69,15 @@ app.get("/users/:username", async (req, res) => {
   res.json({users:user});
 });
 
-app.listen(80, () => "app listening on port 80");
+https.createServer(
+  {
+    key: fs.readFileSync(path.join(__dirname, 'key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'cert.pem')),
+  },
+  app
+)
+.listen(3000, () => {
+  console.log('listening on port 3000')
+})
+
+// app.listen(3000, () => console.log("app listening on port 3000"));
