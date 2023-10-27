@@ -12,7 +12,7 @@ export default function Header() {
   useEffect(() => {
     if (profilePicUrl) return;
     if (!user) return;
-    fetch(`http://52.25.203.21/photo/${user_id}`, {
+    fetch(`https://52.25.203.21:3000/photo/${user_id}`, {
       method: "GET",
     })
       .then((r) => r.json())
@@ -40,7 +40,7 @@ export default function Header() {
           </a>
           <img
             className="profile-pic-header"
-            src={profilePicUrl && `http://52.25.203.21/${profilePicUrl}`}
+            src={profilePicUrl && `https://52.25.203.21:3000/${profilePicUrl}`}
             alt=""
           />
         </nav>

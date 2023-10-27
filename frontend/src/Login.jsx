@@ -13,7 +13,7 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://52.25.203.21/login", {
+    fetch("https://52.25.203.21:3000/login", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
