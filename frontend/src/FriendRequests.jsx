@@ -8,7 +8,7 @@ export default function FriendRequests() {
   const user_id = localStorage.getItem('user_id')
 
   useEffect(() => {
-    fetch(`https://52.25.203.21:3000/user/${user_id}/friends/requests`, {
+    fetch(`http://52.25.203.21:80/user/${user_id}/friends/requests`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -22,7 +22,7 @@ export default function FriendRequests() {
   }, []);
 
   function handleClick(confirm, friend) {
-    fetch(`https://52.25.203.21:3000/user/${user_id}/friends/requests`, {
+    fetch(`http://52.25.203.21:80/user/${user_id}/friends/requests`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

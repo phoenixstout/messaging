@@ -34,7 +34,7 @@ export default function Account() {
     let formData = new FormData();
     formData.append("file", uploadedImage.current.file);
 
-    const response = await fetch("https://52.25.203.21:3000/photo", {
+    const response = await fetch("http://52.25.203.21:80/photo", {
       method: "POST",
       headers: {
         authorization: "bearer " + localStorage.getItem("x-access-token"),
