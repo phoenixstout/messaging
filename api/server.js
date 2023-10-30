@@ -7,7 +7,6 @@ const passport = require("passport");
 const session = require("express-session");
 const cors = require("cors");
 const path = require("path");
-const photoController = require("./controllers/photoController.js");
 const User = require("./models/User.js");
 
 require("dotenv").config();

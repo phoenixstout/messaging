@@ -2,6 +2,7 @@
     display: flex;
     justify-content: end;
     align-items: center;
+    gap: 10px;
 }
 
 .friend-requests-wrapper {
@@ -9,9 +10,6 @@
     flex-direction: column;
 }
 
-.outgoing {
-    background-color: rgb(238, 238, 238);
-}
 
 img {
     border: 1px solid black;

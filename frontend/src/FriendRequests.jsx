@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import "./stylesheets/FriendRequests.css";
+import Icon from '@mdi/react';
+import { mdiCheck, mdiAlphaX } from '@mdi/js';
 
+<Icon path={mdiCheck} size={1} />
 
 export default function FriendRequests() {
   const [friendrequests, setFriendRequests] = useState(null);
@@ -30,7 +33,7 @@ export default function FriendRequests() {
       },
       body: JSON.stringify({ confirm, friend }),
     })
-      .then((r) => console.log(r))
+      .then(window.location.reload())
   }
 
   if (!friendrequests) {
@@ -47,9 +50,11 @@ export default function FriendRequests() {
             <div className="request-wrapper" key={index}>
               <div>{request.username}</div>
               <button onClick={() => handleClick(true, request)}>
-                Confirm
+              <Icon path={mdiCheck} size={.8} />
               </button>
-              <button onClick={() => handleClick(false, request)}>Deny</button>
+              <button onClick={() => handleClick(false, request)}>
+              <Icon path={mdiAlphaX} size={.8} />
+              </button>
             </div>
           );
         })}

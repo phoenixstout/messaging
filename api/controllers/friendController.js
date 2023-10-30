@@ -47,7 +47,7 @@ exports.putRequests = async (req, res) => {
         { _id: authData.user_id },
         {
           $pull: { "friend_requests.incoming": { user_id: req.body.friend.user_id } },
-          $addToSet: { friends: { name: req.body.friend, _id: friend._id } },
+          $addToSet: { friends: { name: req.body.friend.name, _id: friend._id } },
           $push: { conversations: newConvo },
         }
       );
