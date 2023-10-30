@@ -29,11 +29,10 @@ exports.getRequests = (req, res) => {
 };
 
 exports.putRequests = async (req, res) => {
-  console.log(req.body)
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
     if (err) return res.sendStatus(403);
 
-    const friend = await User.findOne({ _id: req.body.friend.user_id });
+    const friend = await User.findOne({ username: req.body.friend_username });
     const user = await User.findById(authData.user_id);
 
     if (req.body.confirm) {
@@ -43,29 +42,41 @@ exports.putRequests = async (req, res) => {
       });
 
       await newConvo.save();
+
+      // Update current user
+      // console.log("Friend username: ", friend.username)
       await User.updateOne(
         { _id: authData.user_id },
         {
-          $pull: { "friend_requests.incoming": { user_id: req.body.friend.user_id } },
-          $addToSet: { friends: { name: req.body.friend, _id: friend._id } },
+          $pull: {
+            "friend_requests.incoming": { username: friend.username },
+            "friend_requests.outgoing": { username: user.username },
+          },
+          $addToSet: { friends: { name: friend.username, _id: friend._id } },
           $push: { conversations: newConvo },
         }
       );
+
+      // Update friend
       await User.updateOne(
-        { _id: req.body.friend.user_id },
+        { _id: friend._id },
         {
-          $pull: { "friend_requests.incoming": { user_id: req.body.friend.user_id } },
+          $pull: {
+            "friend_requests.incoming": { username: user.username },
+            "friend_requests.outgoing": { username: user.username },
+          }, // Accept incoming friend request if doubled
           $addToSet: {
-            friends: { name: user.username, _id: authData.user_id },
+            friends: { name: user.username, _id: user._id },
           },
           $push: { conversations: newConvo },
         }
       );
     } else {
+      // If deny request
       await User.update(
         { _id: authData.user_id },
         {
-          $pull: { "friend_requests.incoming": { user_id: req.body.friend.user_id } },
+          $pull: { "friend_requests.incoming": { username: friend.username } },
         },
         { new: true }
       );
@@ -111,7 +122,7 @@ exports.getConversation = (req, res) => {
   if (!req.token) res.sendStatus(403);
   const friend_id = req.params.friend_id;
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
-    if(!authData) return
+    if (!authData) return;
     const conversation = await Conversation.find({
       $or: [
         { user1_id: authData.user_id, user2_id: friend_id },
@@ -129,7 +140,6 @@ exports.getConversation = (req, res) => {
 
 exports.postConversation = (req, res) => {
   const friend_id = req.params.friend_id;
-  console.log(friend_id)
 
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
     await Conversation.updateOne(

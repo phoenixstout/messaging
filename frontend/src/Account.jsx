@@ -1,6 +1,6 @@
 import "./stylesheets/Account.css";
-import Header from "./Header";
 import { useRef, useState } from "react";
+
 
 
 export default function Account() {
@@ -34,7 +34,7 @@ export default function Account() {
     let formData = new FormData();
     formData.append("file", uploadedImage.current.file);
 
-    const response = await fetch("http://localhost:3000/photo", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/photo`, {
       method: "POST",
       headers: {
         authorization: "bearer " + localStorage.getItem("x-access-token"),
@@ -69,7 +69,7 @@ export default function Account() {
           <img className="profile-pic" ref={uploadedImage} />
         </div>
       </div>
-      <div>
+      <div className="changed-wrapper">
         {changed ? <button onClick={handleSubmit}>Save Changes</button> : null}
       </div>
       <div>{status}</div>

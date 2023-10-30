@@ -1,6 +1,7 @@
 import "./stylesheets/Signup.css";
 import { useEffect, useState } from "react";
 
+
 export default function Signup() {
   const [inputs, setInputs] = useState({
     username: "",
@@ -8,7 +9,7 @@ export default function Signup() {
     confirmPassword: null,
   });
 
-  const [usernameValid, setUsernameValid] = useState(false);
+  const [usernameValid, setUsernameValid] = useState(true);
   const [usernameError, setUsernameError] = useState("");
 
   const [passwordValid, setPasswordValid] = useState(false);
@@ -22,7 +23,7 @@ export default function Signup() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!usernameValid | !passwordValid | !matchValid) return;
-    fetch("http://localhost:3000/signup", {
+    fetch(`${import.meta.env.VITE_API_URL}/signup`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(inputs),
@@ -39,7 +40,7 @@ export default function Signup() {
   useEffect(() => {
     // if(inputs.username.length < 5) return setUsernameValid(false)
     if (inputs.username == "") return setUsernameError("");
-    fetch(`http://localhost:3000/users/${inputs.username}`)
+    fetch(`${import.meta.env.VITE_API_URL}/users/${inputs.username}/taken`)
       .then((r) => r.json())
       .then((r) => {
         setUsernameError("Username taken");

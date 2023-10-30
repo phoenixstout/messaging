@@ -31,7 +31,6 @@ exports.postLogin = async (req, res) => {
     expiresIn: "2h",
   });
   const friend = user.friends[0]? user.friends[0]._id : undefined
-  console.log(friend)
   res.json({ token, user: req.user.username, user_id: user._id, friend});
 };
 

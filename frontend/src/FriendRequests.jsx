@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./stylesheets/FriendRequests.css";
+import Icon from '@mdi/react';
+import { mdiCheck, mdiAlphaX } from '@mdi/js';
 
 
 export default function FriendRequests() {
@@ -8,7 +10,7 @@ export default function FriendRequests() {
   const user_id = localStorage.getItem('user_id')
 
   useEffect(() => {
-    fetch(`http://localhost:3000/user/${user_id}/friends/requests`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/${user_id}/friends/requests`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -21,16 +23,16 @@ export default function FriendRequests() {
       });
   }, []);
 
-  function handleClick(confirm, friend) {
-    fetch(`http://localhost:3000/user/${user_id}/friends/requests`, {
+  function handleClick(confirm, friend_username) {
+    fetch(`${import.meta.env.VITE_API_URL}/user/${user_id}/friends/requests`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
         authorization: "bearer " + localStorage.getItem("x-access-token"),
       },
-      body: JSON.stringify({ confirm, friend }),
+      body: JSON.stringify({ confirm, friend_username }),
     })
-      .then((r) => console.log(r))
+      .then(window.location.reload())
   }
 
   if (!friendrequests) {
@@ -46,17 +48,20 @@ export default function FriendRequests() {
           return (
             <div className="request-wrapper" key={index}>
               <div>{request.username}</div>
-              <button onClick={() => handleClick(true, request)}>
-                Confirm
+              <button onClick={() => handleClick(true, request.username)}>
+              <Icon path={mdiCheck} size={.8} />
               </button>
-              <button onClick={() => handleClick(false, request)}>Deny</button>
+              <button onClick={() => handleClick(false, request.username)}>
+              <Icon path={mdiAlphaX} size={.8} />
+              </button>
             </div>
           );
         })}
         {friendrequests.outgoing.map((request, index) => {
           return (
-            <div className="request-wrapper outgoing" key={index}>
-              <i>{request.username}</i>
+            <div className="outgoing sent-friend-wrapper" key={index}>
+                <div className="sent-friend">{request.username}</div>
+                <i>Sent</i>
             </div>
           );
         })}

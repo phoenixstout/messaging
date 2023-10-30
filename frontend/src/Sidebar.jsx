@@ -9,7 +9,7 @@ export default function Sidebar() {
   const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/user/${user_id}/friends`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/${user_id}/friends`, {
       method: "GET",
       headers: {
         authorization: "bearer " + localStorage.getItem("x-access-token"),

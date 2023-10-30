@@ -1,19 +1,20 @@
 const express = require("express");
+const https = require('https')
+const fs = require('fs')
 const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
 const cors = require("cors");
 const path = require("path");
-const photoController = require("./controllers/photoController.js");
 const User = require("./models/User.js");
+
+const port = 80
 
 require("dotenv").config();
 
 app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
+  cors()
 );
 
 app.use(express.static(path.join(__dirname, "/public")));
@@ -67,4 +68,22 @@ app.get("/users/:username", async (req, res) => {
   res.json({users:user});
 });
 
-app.listen(80, () => "app listening on port 80");
+app.get("/users/:username/taken", async (req, res) => {
+
+  const user = await User.findOne({username:req.params.username}).exec();
+
+  res.json({valid:user});
+});
+
+// https.createServer(
+//   {
+//     key: fs.readFileSync(path.join(__dirname, 'key.pem')),
+//     cert: fs.readFileSync(path.join(__dirname, 'cert.pem')),
+//   },
+//   app
+// )
+// .listen(80, () => {
+//   console.log('listening on port 80')
+// })
+
+app.listen(port, () => console.log(`app listening on port ${port}`));

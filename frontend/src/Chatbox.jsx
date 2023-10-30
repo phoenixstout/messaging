@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./stylesheets/Chatbox.css";
 import { useParams } from "react-router-dom";
 
+
 export default function Chatbox() {
   const [message, setMessage] = useState("");
   const [friend, setFriend] = useState('');
@@ -17,9 +18,11 @@ export default function Chatbox() {
     window.location.href = '/'
   }
 
+
+
   useEffect(()=> {
     if(!friend_id) return
-    fetch(`http://localhost:3000/user/${user_id}/conversation/${friend_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/${user_id}/conversation/${friend_id}`, {
       method: "GET",
       headers: {authorization: 'bearer ' + token}
     })
@@ -37,7 +40,7 @@ export default function Chatbox() {
       );
     }
     fetch(
-      `http://localhost:3000/user/${user_id}/conversation/${friend_id}`,
+      `${import.meta.env.VITE_API_URL}/user/${user_id}/conversation/${friend_id}`,
       {
         method: "POST",
         headers: {

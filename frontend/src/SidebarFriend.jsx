@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import './stylesheets/Sidebar.css'
 
+
 const user_id = localStorage.getItem("user_id");
 
 export default function SidebarFriend({ friend_id }) {
   const [friend, setFriend] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/friends/${friend_id}/profilepic`, {
+    fetch(`${import.meta.env.VITE_API_URL}/friends/${friend_id}/profilepic`, {
       method: "GET",
     })
       .then((r) => r.json())
@@ -25,7 +26,7 @@ export default function SidebarFriend({ friend_id }) {
         <div>{friend.username}</div>
         <img
           className="sidebar profilepic"
-          src={`http://localhost:3000/${friend.profile_pic}`}
+          src={`${import.meta.env.VITE_API_URL}/${friend.profile_pic}`}
           alt=""
         />
       </div>
