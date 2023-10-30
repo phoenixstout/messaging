@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./stylesheets/Addfriend.css";
 
+
 export default function AddFriend() {
   const [friendInput, setFriendInput] = useState("");
   const [friendID, setFriendID] = useState('')
@@ -13,7 +14,7 @@ export default function AddFriend() {
     e.preventDefault();
     if (friendInput == user) return setError("Cannot be your own friend!");
     if (!friendInput) return setError("Please enter friend's username");
-    fetch(`/api/user/${user_id}/friends/requests`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/${user_id}/friends/requests`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -30,7 +31,7 @@ export default function AddFriend() {
   function handleChange(e) {
     setFriendInput(e.target.value);
     if(!e.target.value) return setAutoComplete()
-    fetch(`/api/users/${e.target.value}`)
+    fetch(`${import.meta.env.VITE_API_URL}/users/${e.target.value}`)
       .then((r) => r.json())
       .then(r => {
         if(!r.users.length) return setAutoComplete()

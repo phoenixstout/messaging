@@ -2,6 +2,7 @@ import "./stylesheets/Login.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+
 export default function Login() {
   const [inputs, setInputs] = useState({
     username: null,
@@ -13,7 +14,7 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/api/login", {
+    fetch(`${import.meta.env.VITE_API_URL}/login`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -61,7 +62,7 @@ export default function Login() {
   }
 
   function handleClick() {
-    fetch("/api/login", {
+    fetch(`${import.meta.env.VITE_API_URL}/login`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

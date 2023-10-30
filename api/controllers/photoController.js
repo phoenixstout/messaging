@@ -11,7 +11,7 @@ exports.postPhoto = async (req, res) => {
   jwt.verify(req.token, process.env.JWTSECRET, async (err, authData) => {
     const user = await User.find({ _id: authData.user_id });
     const current_profile_pic = user[0].profile_pic;
-    if (current_profile_pic) {
+    if (current_profile_pic != 'default.png') {
       fs.unlink(current_profile_pic, (err) => {
         if (err) console.log(err);
       });

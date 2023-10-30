@@ -14,7 +14,7 @@ export default function Friends() {
   }
 
   useEffect(() => {
-    fetch(`/api/user/${user_id}/friends`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/${user_id}/friends`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -39,7 +39,7 @@ export default function Friends() {
             <h3>My Friends</h3>
               {friends &&
                 friends.friends.map((friend, index) => {
-                  return <div key={index}>{friend.name.username}</div>;
+                  return <div key={index}>{friend.name}</div>;
                 })}
           </div>
       </div>

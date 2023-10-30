@@ -9,6 +9,8 @@ const cors = require("cors");
 const path = require("path");
 const User = require("./models/User.js");
 
+const port = 3000
+
 require("dotenv").config();
 
 app.use(
@@ -84,4 +86,4 @@ app.get("/users/:username/taken", async (req, res) => {
 //   console.log('listening on port 80')
 // })
 
-app.listen(80, () => console.log("app listening on port 80"));
+app.listen(port, () => console.log(`app listening on port ${port}`));
