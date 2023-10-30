@@ -67,6 +67,15 @@ app.get("/users/:username", async (req, res) => {
   res.json({users:user});
 });
 
+app.get("/users/:username/taken", async (req, res) => {
+
+  const user = await User.findOne({username:req.params.username}).exec();
+  console.log(user)
+
+
+  res.json({valid:user});
+});
+
 // https.createServer(
 //   {
 //     key: fs.readFileSync(path.join(__dirname, 'key.pem')),
