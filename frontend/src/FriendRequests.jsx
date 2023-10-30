@@ -55,8 +55,9 @@ export default function FriendRequests() {
         })}
         {friendrequests.outgoing.map((request, index) => {
           return (
-            <div className="request-wrapper outgoing" key={index}>
-              <i>{request.username}</i>
+            <div className="outgoing sent-friend-wrapper" key={index}>
+                <div className="sent-friend">{request.username}</div>
+                <i>Sent</i>
             </div>
           );
         })}

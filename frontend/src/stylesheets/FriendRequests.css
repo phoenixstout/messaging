@@ -11,9 +11,13 @@
 
 .outgoing {
     background-color: rgb(238, 238, 238);
-    padding-right: 5px;
 }
 
 img {
     border: 1px solid black;
+}
+
+.sent-friend-wrapper {
+    display: flex;
+    justify-content: space-between;
 }
