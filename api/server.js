@@ -9,7 +9,7 @@ const cors = require("cors");
 const path = require("path");
 const User = require("./models/User.js");
 
-const port = 3000
+const port = 80
 
 require("dotenv").config();
 
