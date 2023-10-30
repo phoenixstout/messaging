@@ -22,3 +22,9 @@ label {
 .server-error {
     text-align: center;
 }
+
+.as-guest {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}

@@ -60,6 +60,33 @@ export default function Login() {
     }
   }
 
+  function handleClick() {
+    fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        username: 'user',
+        password: 'password'
+      }),
+    })
+      .then((r) => {
+        if (r.status != 200) setServerError(true);
+        else {
+          setServerError(false);
+          return r.json();
+        }
+      })
+      .then((r) => {
+        localStorage.setItem("user", r.user);
+        localStorage.setItem("user_id", r.user_id);
+        localStorage.setItem("x-access-token", r.token);
+        if(r.friend === undefined) window.location.href = `/user/${r.user_id}/friends`
+        else window.location.href = `/user/${r.user_id}/conversation/${r.friend}`;
+      })
+      .catch(e => console.log(e))
+      ;
+  }
+
   return (
     <div>
       <form className="login" action="" onSubmit={handleSubmit}>
@@ -84,6 +111,9 @@ export default function Login() {
         </div>
         <button>Log In</button>
       </form>
+      <div className="as-guest">
+        <button onClick={handleClick}>Continue as Demo User</button>
+      </div>
       {!valid ? <div>Passwords must match</div> : null}
       {serverError ? (
         <div className="server-error">Username or password is incorrect</div>

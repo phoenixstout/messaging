@@ -8,7 +8,7 @@ export default function Signup() {
     confirmPassword: null,
   });
 
-  const [usernameValid, setUsernameValid] = useState(false);
+  const [usernameValid, setUsernameValid] = useState(true);
   const [usernameError, setUsernameError] = useState("");
 
   const [passwordValid, setPasswordValid] = useState(false);
@@ -39,7 +39,7 @@ export default function Signup() {
   useEffect(() => {
     // if(inputs.username.length < 5) return setUsernameValid(false)
     if (inputs.username == "") return setUsernameError("");
-    fetch(`http://52.25.203.21:80/users/${inputs.username}`)
+    fetch(`http://52.25.203.21:80/users/${inputs.username}/taken`)
       .then((r) => r.json())
       .then((r) => {
         setUsernameError("Username taken");
