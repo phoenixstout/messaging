@@ -7,6 +7,7 @@ import Account from "./Account";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Chatbox from "./Chatbox";
+import Welcome from "./Welcome";
 
 export default function Router() {
   const router = createBrowserRouter([
@@ -15,6 +16,10 @@ export default function Router() {
       element: <Header />,
       errorElement: <ErrorPage />,
       children: [
+        {
+          index: true,
+          element: <Welcome />
+        },
         {
           path: "login",
           element: <Login />,
