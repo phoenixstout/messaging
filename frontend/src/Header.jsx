@@ -12,7 +12,7 @@ export default function Header() {
   useEffect(() => {
     if (profilePicUrl) return;
     if (!user) return;
-    fetch(`http://52.25.203.21:80/photo/${user_id}`, {
+    fetch(`/api/photo/${user_id}`, {
       method: "GET",
     })
       .then((r) => r.json())
