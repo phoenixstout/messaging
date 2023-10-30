@@ -4,3 +4,5 @@ populatedb.js
 cert.pem
 csr.pem
 key.pem
+# Local Netlify folder
+.netlify

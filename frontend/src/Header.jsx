@@ -40,7 +40,7 @@ export default function Header() {
           </a>
           <img
             className="profile-pic-header"
-            src={profilePicUrl && `http://52.25.203.21:80/${profilePicUrl}`}
+            src={profilePicUrl && `/api/${profilePicUrl}`}
             alt=""
           />
         </nav>

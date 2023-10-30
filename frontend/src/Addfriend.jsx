@@ -30,7 +30,7 @@ export default function AddFriend() {
   function handleChange(e) {
     setFriendInput(e.target.value);
     if(!e.target.value) return setAutoComplete()
-    fetch(`http://52.25.203.21:80/users/${e.target.value}`)
+    fetch(`/api/users/${e.target.value}`)
       .then((r) => r.json())
       .then(r => {
         if(!r.users.length) return setAutoComplete()

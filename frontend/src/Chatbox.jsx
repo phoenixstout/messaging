@@ -19,7 +19,7 @@ export default function Chatbox() {
 
   useEffect(()=> {
     if(!friend_id) return
-    fetch(`http://52.25.203.21:80/user/${user_id}/conversation/${friend_id}`, {
+    fetch(`/api/user/${user_id}/conversation/${friend_id}`, {
       method: "GET",
       headers: {authorization: 'bearer ' + token}
     })

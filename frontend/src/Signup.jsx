@@ -22,7 +22,7 @@ export default function Signup() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!usernameValid | !passwordValid | !matchValid) return;
-    fetch("http://52.25.203.21:80/signup", {
+    fetch("/api/signup", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(inputs),
