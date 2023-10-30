@@ -37,7 +37,7 @@ export default function Chatbox() {
       );
     }
     fetch(
-      `https://52.25.203.21:3000/user/${user_id}/conversation/${friend_id}`,
+      `/api//user/${user_id}/conversation/${friend_id}`,
       {
         method: "POST",
         headers: {

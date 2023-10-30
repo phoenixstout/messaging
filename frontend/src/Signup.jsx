@@ -39,9 +39,10 @@ export default function Signup() {
   useEffect(() => {
     // if(inputs.username.length < 5) return setUsernameValid(false)
     if (inputs.username == "") return setUsernameError("");
-    fetch(`http://52.25.203.21:80/users/${inputs.username}/taken`)
+    fetch(`/api/users/${inputs.username}/taken`)
       .then((r) => r.json())
       .then((r) => {
+        console.log(r)
         setUsernameError("Username taken");
         setUsernameValid(!r.valid);
       });

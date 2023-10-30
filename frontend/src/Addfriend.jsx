@@ -13,7 +13,7 @@ export default function AddFriend() {
     e.preventDefault();
     if (friendInput == user) return setError("Cannot be your own friend!");
     if (!friendInput) return setError("Please enter friend's username");
-    fetch(`http://52.25.203.21:80/user/${user_id}/friends/requests`, {
+    fetch(`/api/user/${user_id}/friends/requests`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
